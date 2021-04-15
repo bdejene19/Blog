@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 const LoginForm = styled.form`
     width: 100%;
-    padding: 1em;
 
 `;
 
@@ -13,7 +12,7 @@ const UserEntry = styled.div`
     
 `
 
-export default function LoginPage() {
+export default function LoginContent() {
     return (
         <div>
             <LoginForm action={`/getUser/:[id]`} method='POST'>
@@ -30,9 +29,6 @@ export default function LoginPage() {
                 <button type='submit'>Login</button>
                 <button type='button'>Create account!</button>
             </LoginForm>
-            <div>
-                why can't i access frontend folder on git
-            </div>
         </div>
     )
 }

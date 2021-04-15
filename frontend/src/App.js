@@ -6,7 +6,12 @@ function App() {
   return (
     <div>
       <Router>
+        <Switch>
         <Route path='/' component={Home}></Route>
+
+
+
+        </Switch>
       </Router>
     </div>
   )
