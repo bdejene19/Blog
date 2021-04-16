@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import HomeBackground from '../components/HomeBackground';
-import LoginContent from '../components/LoginContent';
-import Nav from '../components/Nav';
+import HomeBackground from '../components/homepage/HomeBackground';
 
 
 const HomeWrapper = styled.section`
+scroll-behavior: smooth;
 
 `;
 
@@ -34,8 +33,7 @@ const HomeBg = styled.article`
 export const Home = () => {
     return (
         <HomeWrapper>
-                {/* <Nav></Nav> */}
-                <HomeBackground></HomeBackground>
+            <HomeBackground></HomeBackground>
         </HomeWrapper>
     )
 }

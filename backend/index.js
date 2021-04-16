@@ -13,8 +13,8 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.get('/test', (req, res) => {
-    res.send('hello world');
+app.post('/test', (req, res) => {
+    console.log(req.body);
 })
 
 const PORT = process.env.PORT || 5000
