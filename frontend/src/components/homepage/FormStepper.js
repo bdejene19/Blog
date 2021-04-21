@@ -82,7 +82,7 @@ export default function FormStepper() {
 
         if (multiStepFormSubmit.password === multiStepFormSubmit.confirmPassword) {
           try {
-             fetch('/test', {
+             fetch('/createUser', {
               headers: {
                 'Content-Type': 'application/json'
               },
@@ -130,6 +130,7 @@ export default function FormStepper() {
               >
                 Back
               </Button>
+              
               <Button variant="contained"  color="primary" type='submit' onClick={handleNext}>
                 { activeStep !== steps.length - 1  ? 'Next' : 'Submit'}
 
