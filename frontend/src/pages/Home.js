@@ -4,8 +4,8 @@ import HomeBackground from '../components/homepage/HomeBackground';
 
 
 const HomeWrapper = styled.section`
-scroll-behavior: smooth;
-
+/* scroll-behavior: smooth; */
+    scroll-behavior:  smooth;
 `;
 
 const HomeBg = styled.article`

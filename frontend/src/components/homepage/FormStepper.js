@@ -4,7 +4,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import BasicInfoForm from './BasicInfoForm';
 import UserPassForm from './UserPassForm';
 
@@ -29,9 +28,7 @@ function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
       return (
-          <div>
               <BasicInfoForm/>
-          </div>
       )
     case 1:
       return (
@@ -46,24 +43,72 @@ function getStepContent(stepIndex) {
 
 export default function FormStepper() {
   const classes = useStyles();
+  const [formOneInfo, setFormOneObj] = React.useState({})
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();
 
-  const handleNext = () => {
-   
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = (e) => {
+    e.preventDefault();
+    let totalInputs = document.querySelectorAll('input');
+    let numUnhandledInputs = 0;
+    
+    for (var count = 0; count < totalInputs.length; count++) {
+      if (totalInputs[count].value === "") {
+        totalInputs[count].style.border = 'red solid 3px';
+        numUnhandledInputs++;
+        let textInput = totalInputs[count];
+        setTimeout(() => {
+          textInput.style.border = 'black solid 1px';
+          textInput.style.borderRadius = '3px';
+        }, 3000)
+      } 
+    }
+
+    let formOneSubmission = {};
+
+    if (numUnhandledInputs === 0) {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+
+      if (document.getElementById('form1') !== null) {
+        formOneSubmission = { "firstName": totalInputs[0].defaultValue, "lastName": totalInputs[1].defaultValue}
+        setFormOneObj(formOneSubmission);
+      } else {
+        let multiStepFormSubmit = {
+          ...formOneInfo,
+          username: totalInputs[0].value,
+          password: totalInputs[1].value,
+          confirmPassword: totalInputs[2].value
+        }
+
+        if (multiStepFormSubmit.password === multiStepFormSubmit.confirmPassword) {
+          try {
+             fetch('/test', {
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              method: "POST",
+              body: JSON.stringify(multiStepFormSubmit),
+              
+            })
+
+          } catch(e) {
+            console.log(e);
+          }
+        }
+      }
+    }
+
+  
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const handleReset = () => {
-    setActiveStep(0);
-  };
 
   return (
     <div className={classes.root}>
+
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
           <Step key={label}>
@@ -76,7 +121,7 @@ export default function FormStepper() {
          null
         ) : (
           <div>
-            <Typography className={classes.instructions}>{getStepContent(activeStep)}</Typography>
+            <div>{getStepContent(activeStep)}</div>
             <div style={{textAlign: 'center'}}>
               <Button
                 disabled={activeStep === 0}
@@ -85,14 +130,14 @@ export default function FormStepper() {
               >
                 Back
               </Button>
-              <Button variant="contained"  color="primary" type='submit' form={activeStep !== steps.length - 1  ? 'null' : 'form2'} onClick={handleNext}>
+              <Button variant="contained"  color="primary" type='submit' onClick={handleNext}>
                 { activeStep !== steps.length - 1  ? 'Next' : 'Submit'}
 
               </Button> 
             </div>
-          </div>
-        )}
+          </div>)}
       </div>
+
     </div>
   );
 }

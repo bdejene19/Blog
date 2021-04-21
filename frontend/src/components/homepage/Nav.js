@@ -5,7 +5,7 @@ const NavBar = styled.nav`
     z-index: 50;
     display: flex;
     padding-top: 1rem;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.5eem;
     padding-left: 0.5rem;
     width: 100vw;   
     background-color: snow;
