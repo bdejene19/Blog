@@ -1,39 +1,41 @@
 import React from 'react';
+import NavBar from '../components/home/NavBar';
 import styled from 'styled-components';
-import HomeBackground from '../components/homepage/HomeBackground';
+import { CreatePost } from '../components/home/CreatePost';
+import Greeting from '../components/home/Greeting';
+import RecommendedPosts from '../components/home/RecommendedPosts';
 
+const HomeLayout = styled.section`
+    width: 100%; 
+    display: grid;
+    
+    grid-template-columns: auto 2fr 1fr;    
+    grid-template-rows: auto;
 
-const HomeWrapper = styled.section`
-/* scroll-behavior: smooth; */
-    scroll-behavior:  smooth;
-`;
-
-const HomeBg = styled.article`
-    background-color: whitesmoke;
-    width: 100vw;
-    background: url("https://www.101computing.net/wp/wp-content/uploads/artillery-game-background.png");
-    background-size: cover;
-    height: 100vh;
-    position: relative;
-
-    & h1 { 
-        position: absolute;
-        color: #fff;
-        font-family:arial;
-        /* color: transparent; */
-        mix-blend-mode: multiply;
-    }
-    span { 
+    .thirdCol {
+        display: flex;
+        flex-direction: column;
+        
+        border: solid black;
        
+        padding-top: 3em;
     }
 
 `;
-
-
-export const Home = () => {
+export default function Home() {
     return (
-        <HomeWrapper>
-            <HomeBackground></HomeBackground>
-        </HomeWrapper>
+        <HomeLayout>
+            <NavBar></NavBar>
+            <div style={{border: 'solid black 3px', paddingLeft: '3em'}}>
+                <Greeting></Greeting>
+                <CreatePost></CreatePost>
+            </div>
+            <div className='thirdCol'>
+
+            <RecommendedPosts></RecommendedPosts>
+            </div>
+
+        </HomeLayout>
     )
 }
+
