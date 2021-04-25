@@ -3,7 +3,7 @@ const mongo = require('mongoose');
 const UserSchema = mongo.Schema({
     firstName: String ,
     lastName: String,
-    userName: {type: String, unique: true},
+    userName: String,
     password: String,
     blogPosts: [],
     numFollowers: {type: Number, default: 0}
