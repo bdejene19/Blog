@@ -12,27 +12,28 @@ export default function RecommendedPosts() {
         let results = response.results;
         setAPIData(results);
 
-    }
-    var u;
-    
-    useEffect(() => {
-      
-        getUsers();    
-        let pData = document.getElementsByClassName('card-content');  
-        
         for (var count = 0; count < pData.length; count++) {
             console.log(pData[count].innerHTML.length);
             if (pData[count].innerHTML.length >= 120) {
                 let cutOff = pData[count].innerHTML;
                 cutOff = cutOff.slice(0, 140).concat('...');
-
-                pData[count].innerHTML = cutOff ;
+                console.log(cutOff);
+                pData[count].innerText = cutOff ;
             } else {
                 console.log('what happened?')
             }
         }
+
+    }
+    let pData = document.getElementsByClassName('card-content');  
+
+    useEffect(() => {
+      
+        getUsers();    
         
-    }, [])
+       
+        
+    }, [pData])
 
 
 
@@ -42,23 +43,28 @@ export default function RecommendedPosts() {
     
     return (
         <RecommendWrap>
-        <RecommendedContainer>
-            {/* <img src='/secondaryBg.jpg' alt='react-logo'></img> */}
-            {APIdata[0] !== undefined ? 
-            
-            <div>
-                <div className='title'>
-                <img src={APIdata[0].picture.medium} alt='profile picture'></img>
-                <h1>{APIdata[0].name.first} </h1>
-                <p>{APIdata[0].location.city}, {APIdata[0].location.country}</p>
-            </div>
 
-            <p className='card-content'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-            </div> : 'dejene'}
+        <Tilt options={{max:  25, reset: true, pespective: 1000, scale: 1.05}} className='tiltIcon'>
+            <RecommendedContainer>
+                {/* <img src='/secondaryBg.jpg' alt='react-logo'></img> */}
+                {APIdata[0] !== undefined ? 
+                
+                <div>
+                    <div className='title'>
+                    <img src={APIdata[0].picture.medium} alt='profile picture'></img>
+                    <h1>{APIdata[0].name.first} </h1>
+                    <p>{APIdata[0].location.city}, {APIdata[0].location.country}</p>
+                </div>
 
-            <SeeMoreBtn>See More</SeeMoreBtn>            
-        </RecommendedContainer>
+                <p className='card-content'>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                </div> : 'dejene'}
 
+                <SeeMoreBtn>See More</SeeMoreBtn>            
+            </RecommendedContainer>
+        </Tilt>
+
+
+        <Tilt options={{max:  25, reset: true, pespective: 1000, scale: 1.05}} className='tiltIcon'>
 
         <RecommendedContainer>
             {/* <img src='/secondaryBg.jpg' alt='react-logo'></img> */}
@@ -76,6 +82,9 @@ export default function RecommendedPosts() {
 
             <SeeMoreBtn>See More</SeeMoreBtn>            
         </RecommendedContainer>
+        
+        </Tilt>
+        <Tilt options={{max:  25, reset: true, pespective: 1000, scale: 1.05}} className='tiltIcon'>
 
 
         <RecommendedContainer>
@@ -95,6 +104,8 @@ export default function RecommendedPosts() {
             <SeeMoreBtn>See More</SeeMoreBtn>            
         </RecommendedContainer>
 
+        </Tilt>
+
 
        
 
@@ -106,10 +117,21 @@ const RecommendWrap = styled.article`
     display: grid;
     grid-template-columns: 1fr;
     row-gap: 3em;
-    align-items: center;
+    justify-items: center;
+    padding-top: 1em;
+
+    .tiltIcon {
+        display: grid;
+        justify-items: center;
+
+        &:focus {
+            opacity: 1;
+        }
+    }
 `;
 
-const RecommendedContainer = styled(Tilt)`
+const RecommendedContainer = styled.div`
+
     width: 85%;
     height: 25vh;;
     border: solid lightgrey 3px;
@@ -121,9 +143,14 @@ const RecommendedContainer = styled(Tilt)`
     display: grid;
     grid-template-columns: 1fr;
     padding: 0.5em;
-
     &:hover {
         opacity: 1;
+
+        p {
+            font-weight: 500;
+
+
+        }
     }
     
     h1 {
@@ -147,7 +174,7 @@ const RecommendedContainer = styled(Tilt)`
 
        p {
            font-size: 14px;
-           width: 100%;
+           width: fit-content;
            justify-items: flex-end  ;
            text-align: right;
        }
@@ -169,7 +196,6 @@ const RecommendedContainer = styled(Tilt)`
     }
 
     button {
-        border: solid green 5px;    
         align-self: flex-end; 
         justify-self: center;   
     }
@@ -185,10 +211,11 @@ const SeeMoreBtn = styled.button`
     border: none;
     font-size: 16px;
     background: linear-gradient(45deg, magenta, snow 100%);
-    &:hover {
+    &:hover, :focus{
         background-color: limegreen;
         color: slateblue;
         font-weight: 900;
+        outline: none;
         border: orangered 3px solid;
     }
 `;

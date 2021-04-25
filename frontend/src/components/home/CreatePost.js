@@ -46,12 +46,16 @@ export const CreatePost = () => {
 
     return (
         <PostWrapper>
-            <textarea placeholder='What would you like to write about...'></textarea>
-            <div>
-                <PostButton type='button' btnColor='snow'>Cancel</PostButton>
-                <PostButton type='button'>Post!</PostButton>
 
-            </div>
+            <form method='POST' action='/newPost'>
+
+            <textarea placeholder='What would you like to write about...'></textarea>
+                <div>
+                    <PostButton type='button' btnColor='snow'>Cancel</PostButton>
+                    <PostButton type='submit'>Post!</PostButton>
+                </div>
+            </form>
+
         </PostWrapper>
     )
 }

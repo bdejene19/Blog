@@ -13,12 +13,8 @@ const HomeLayout = styled.section`
     grid-template-rows: auto;
 
     .thirdCol {
-        display: flex;
-        flex-direction: column;
         
-        border: solid black;
        
-        padding-top: 3em;
     }
 
 `;
@@ -32,7 +28,7 @@ export default function Home() {
             </div>
             <div className='thirdCol'>
 
-            <RecommendedPosts></RecommendedPosts>
+                <RecommendedPosts></RecommendedPosts>
             </div>
 
         </HomeLayout>
